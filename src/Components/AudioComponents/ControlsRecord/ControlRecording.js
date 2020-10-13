@@ -3,6 +3,7 @@ import {
   useAudioRecord,
   RECORD_STOP,
   RECORD_START,
+  RECORD_PLAY,
 } from "../../../Providers/AudioContextProvider";
 import ButtonRecord from "./ButtonRecord";
 import ButtonStart from "./ButtonStart";
@@ -18,7 +19,7 @@ const ControlRecording = () => {
     return <ButtonStart></ButtonStart>;
   }
 
-  return "";
+  return <ButtonRecord disabled={audioState === RECORD_PLAY}></ButtonRecord>;
 };
 
 export default ControlRecording;

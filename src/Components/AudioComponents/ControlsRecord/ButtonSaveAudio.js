@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import useAxios from "axios-hooks";
+import { Button, Tooltip, notification } from "antd";
 import { useAudioRecord } from "../../../Providers/AudioContextProvider";
+import { SaveOutlined } from "@ant-design/icons";
+
 
 const ButtonSaveAudio = () => {
   const { audioBlob } = useAudioRecord();
@@ -18,7 +21,6 @@ const ButtonSaveAudio = () => {
       reader.readAsDataURL(audioBlob);
       reader.onload = () => {
         const base64AudioMessage = reader.result.split(",")[1];
-
         executePost({
           headers: {
             "Access-Control-Allow-Origin": "*",
@@ -29,21 +31,33 @@ const ButtonSaveAudio = () => {
     }
   };
 
-  if (loading) {
-    return <button>Loading...</button>;
-  }
+  useEffect(() => {
+    if (data != null) {
+      notification.success({
+        message: 'Succcess',
+        description:
+          'Audio save',
+      });
+    }
+  },[data])
 
   if (error) {
     return "Error save data";
   }
 
-  if (data != null) {
-    return "Save success";
-  }
-
   if (audioBlob == null) return "";
 
-  return <button onClick={handleCreateAudioRecord}>Save Audio</button>;
+  return (
+    <Tooltip title="Save audio">
+      <Button
+        onClick={handleCreateAudioRecord}
+        size="large"
+        style={{ margin: 4 }}
+        loading={loading}
+        icon={<SaveOutlined style={{ fontSize: 30 }} />}
+      />
+    </Tooltip>
+  );
 };
 
 export default ButtonSaveAudio;

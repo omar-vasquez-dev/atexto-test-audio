@@ -1,16 +1,20 @@
 import React from "react";
 import { useAudioRecord } from "../../../Providers/AudioContextProvider";
-import useStateRecordingAudio from "../hooks/useStateRecordingAudio";
+import { Button, Tooltip } from "antd";
 
 const ButtonStart = () => {
   const { stopRecord } = useAudioRecord();
-  const counter = useStateRecordingAudio();
   return (
-    <React.Fragment>
-      <span> {counter} recording... </span>
-      <br></br>
-      <button onClick={stopRecord}>Stop</button>
-    </React.Fragment>
+    <Tooltip title="Stop record">
+      <Button
+        size="large"
+        className="Rec"
+        shape="circle"
+        style={{ margin: 4}}
+        icon={<div style={{  margin: "auto", backgroundColor: "red", borderRadius: 2, width: 20 , height: 20}}></div>}
+        onClick={stopRecord}
+      />
+    </Tooltip>
   );
 };
 

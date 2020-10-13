@@ -1,26 +1,26 @@
 import React, { useState } from "react";
 import { useAudioRecord } from "../../../Providers/AudioContextProvider";
-import useStateRecordingAudio from "../hooks/useStateRecordingAudio";
+import {Tooltip,Button} from 'antd';
+import { PauseOutlined, CaretRightOutlined } from "@ant-design/icons"
 
 const ButtonPlay = ({ disabled = false }) => {
   const { playRecord } = useAudioRecord();
   const [playing, setPlaying] = useState(false);
-  const timeString = useStateRecordingAudio();
-
-  if (playing) {
-    return <button>{timeString}</button>;
-  }
 
   return (
-    <button
-      disabled={disabled}
-      onClick={() => {
-        playRecord();
-        setPlaying(true);
-      }}
-    >
-      Play
-    </button>
+    <Tooltip title={playing ? "Pause record" : "Play record"}>
+      <Button
+        size="large"
+        shape="circle"
+        style={{ margin: 4 }}
+        icon={ playing ? <PauseOutlined /> : <CaretRightOutlined />}
+        disabled={disabled}
+        onClick={() => {
+          playRecord();
+          setPlaying(true);
+        }}
+      />
+    </Tooltip>
   );
 };
 

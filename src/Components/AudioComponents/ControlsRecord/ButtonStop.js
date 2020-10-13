@@ -1,22 +1,20 @@
 import React from "react";
 import { useAudioRecord } from "../../../Providers/AudioContextProvider";
-import useStateRecordingAudio from "../hooks/useStateRecordingAudio";
-
+import {Button, Tooltip} from 'antd';
+import { PauseOutlined } from "@ant-design/icons"
 const ButtonStop = () => {
   const { pauseRecord } = useAudioRecord();
-  const timeString = useStateRecordingAudio(true);
-
   return (
     <React.Fragment>
-      <span> {timeString} Playing... </span>
-      <br></br>
-      <button
-        onClick={() => {
-          pauseRecord();
-        }}
-      >
-        Stop
-      </button>
+      <Tooltip title={"Pause record"}>
+      <Button
+        size="large"
+        shape="circle"
+        style={{ margin: 4 }}
+        icon={ <PauseOutlined />}
+        onClick={ pauseRecord}
+      />
+    </Tooltip>
     </React.Fragment>
   );
 };
