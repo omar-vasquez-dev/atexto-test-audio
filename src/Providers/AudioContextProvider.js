@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 const AudioContext = React.createContext();
 
-const RECORD_START = "RECORD_START",
+export const RECORD_START = "RECORD_START",
   RECORD_STOP = "RECORD_STOP",
   RECORD_PLAY = "RECORD_PLAY";
 
@@ -9,12 +9,28 @@ function AudioContextProvider(props) {
   const [mediaRecorder, setMediaRecorder] = useState(null);
   const [audioChunks, setAudioChunks] = useState([]);
   const [audio, setAudio] = useState(null);
+  const [audioBlob, setAudioBlob] = useState(null);
   const [audioState, setAState] = useState(RECORD_STOP);
+  const [message, setMessage] = useState("Loading ...");
 
   const playRecord = () => {
     if (audio != null) {
       audio.play();
+      audio.onended = () => {
+        audio.currentTime = 0;
+        setAudio(audio);
+        setAState(RECORD_STOP);
+      };
       setAState(RECORD_PLAY);
+    }
+  };
+
+  const pauseRecord = () => {
+    if (audio != null) {
+      audio.pause();
+      audio.currentTime = 0;
+      setAudio(audio);
+      setAState(RECORD_STOP);
     }
   };
 
@@ -33,14 +49,17 @@ function AudioContextProvider(props) {
 
   const handlerDataAvailable = useCallback(
     (event) => {
+      console.log("stream stream", event);
       setAudioChunks([...audioChunks, event.data]);
     },
     [audioChunks]
   );
 
   const handleStopMediaRecord = useCallback(() => {
-    const audioBlob = new Blob(audioChunks);
-    const audioUrl = URL.createObjectURL(audioBlob);
+    console.log(audioChunks);
+    const audioBlob = new Blob(audioChunks, { type: "audio/ogg; codecs=opus" });
+    setAudioBlob(audioBlob);
+    const audioUrl = window.URL.createObjectURL(audioBlob);
     const audio = new Audio(audioUrl);
     setAudio(audio);
   }, [audioChunks]);
@@ -48,7 +67,7 @@ function AudioContextProvider(props) {
   useEffect(() => {
     if (mediaRecorder != null) {
       mediaRecorder.addEventListener("dataavailable", handlerDataAvailable);
-      mediaRecorder.addEventListener("stop", handleStopMediaRecord);
+      mediaRecorder.onstop = handleStopMediaRecord;
     }
   }, [mediaRecorder, handleStopMediaRecord, handlerDataAvailable]);
 
@@ -60,13 +79,13 @@ function AudioContextProvider(props) {
         setMediaRecorder(mediaRecorder);
       },
       () => {
-        console.log("Mic Permission Denied");
+        setMessage("Mic Permission Denied");
       }
     );
   }, []);
 
   if (mediaRecorder == null) {
-    return "Mic Permission Denied";
+    return message;
   }
 
   return (
@@ -76,8 +95,10 @@ function AudioContextProvider(props) {
         startRecord,
         stopRecord,
         playRecord,
+        pauseRecord,
         audio,
         audioState,
+        audioBlob,
       }}
       {...props}
     />

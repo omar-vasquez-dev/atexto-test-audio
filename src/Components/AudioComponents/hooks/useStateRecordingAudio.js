@@ -1,16 +1,14 @@
-import React, { useEffect } from "react"
+import React, { useEffect } from "react";
 
-const useStateRecordingAudio = (stateRecord) => {
+const useStateRecordingAudio = () => {
   const [counter, setCounter] = React.useState(0);
-    
+
   useEffect(() => {
-    const timer = stateRecord === "start" && setInterval(() => setCounter(counter + 1), 1000);
+    const timer = setInterval(() => setCounter(counter + 1), 1000);
     return () => clearInterval(timer);
-  }, [counter, stateRecord]);
+  }, [counter]);
 
-  return (
-      <div>{counter}</div>
-  );
-}
+  return <div>{counter}</div>;
+};
 
-export default useStateRecordingAudio 
+export default useStateRecordingAudio;
