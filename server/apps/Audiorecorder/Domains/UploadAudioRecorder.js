@@ -1,6 +1,6 @@
 class UpdateAudioRecorder {
   constructor() {
-    this.driver = ioc.use("Service/DriverAudioFilesService");
+    this.driver = global.ioc.use("Service/DriverAudioFilesService");
   }
   async invoke(metaName, audioBase64) {
     if (!metaName) throw Error("Required metaName");
