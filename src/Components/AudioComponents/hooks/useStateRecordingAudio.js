@@ -8,7 +8,7 @@ const useStateRecordingAudio = () => {
     return () => clearInterval(timer);
   }, [counter]);
 
-  return <div>{counter}</div>;
+  return counter;
 };
 
 export default useStateRecordingAudio;

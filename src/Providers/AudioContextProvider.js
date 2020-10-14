@@ -13,6 +13,13 @@ function AudioContextProvider(props) {
   const [audioState, setAState] = useState(RECORD_STOP);
   const [message, setMessage] = useState("Loading ...");
 
+  const resetAudio = () => {
+    if (audio != null) {
+      setAudio(null);
+      setAState(RECORD_STOP);
+    }
+  };
+
   const playRecord = () => {
     if (audio != null) {
       audio.play();
@@ -72,6 +79,15 @@ function AudioContextProvider(props) {
   }, [mediaRecorder, handleStopMediaRecord, handlerDataAvailable]);
 
   useEffect(() => {
+    var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+    if (isSafari) {
+      setMessage(
+        "Permision mic record not support Safari, use chrome or firefox"
+      );
+      return;
+    }
+
     navigator.getUserMedia(
       { audio: true },
       (stream) => {
@@ -99,6 +115,7 @@ function AudioContextProvider(props) {
         audio,
         audioState,
         audioBlob,
+        resetAudio,
       }}
       {...props}
     />

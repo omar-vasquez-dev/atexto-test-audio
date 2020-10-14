@@ -3,7 +3,11 @@ const GetAllAudioRecords = require("./Domains/GetAllAudioRecords");
 const CreateAudioRecorder = require("./Domains/CreateAudioRecorder");
 const UploadAudioRecorder = require("./Domains/UploadAudioRecorder");
 const AudioRecorderRepository = require("./Repositories/AudioRecorderRepository");
+const GetAudioRecordInDrive = require("./Domains/GetAudioRecordInDrive");
+const DeleteAudioRecord = require("./Domains/DeleteAudioRecord");
+const RemoveAudioRecordInDrive = require("./Domains/RemoveAudioRecordInDrive");
 const GetAudioRecord = require("./Domains/GetAudioRecord");
+const UpdateNameAudioRecord = require("./Domains/UpdateNameAudioRecord");
 
 class ServiceProviderAudioRecorder {
   register(ioc, namespace) {
@@ -12,7 +16,24 @@ class ServiceProviderAudioRecorder {
       `${namespace}/Domains/UploadAudioRecorder`,
       () => new UploadAudioRecorder()
     );
+    ioc.bind(
+      `${namespace}/Domains/UpdateNameAudioRecord`,
+      () => new UpdateNameAudioRecord()
+    );
+
     ioc.bind(`${namespace}/Domains/GetAudioRecord`, () => new GetAudioRecord());
+    ioc.bind(
+      `${namespace}/Domains/DeleteAudioRecord`,
+      () => new DeleteAudioRecord()
+    );
+    ioc.bind(
+      `${namespace}/Domains/RemoveAudioRecordInDrive`,
+      () => new RemoveAudioRecordInDrive()
+    );
+    ioc.bind(
+      `${namespace}/Domains/GetAudioRecordInDrive`,
+      () => new GetAudioRecordInDrive()
+    );
     ioc.bind(
       `${namespace}/Domains/GetAllAudioRecords`,
       () => new GetAllAudioRecords()

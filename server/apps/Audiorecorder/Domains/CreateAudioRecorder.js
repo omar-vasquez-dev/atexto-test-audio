@@ -1,6 +1,6 @@
 class CreateAudioRecorder {
   constructor() {
-    this.repository = ioc.use(
+    this.repository = global.ioc.use(
       "Apps/AudioRecorder/Repositories/AudioRecorderRepository"
     );
   }

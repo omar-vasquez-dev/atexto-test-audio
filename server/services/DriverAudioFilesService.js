@@ -5,6 +5,7 @@ class DriverAudioFiles {
   constructor() {
     this.writeFile = promisify(fs.writeFile);
     this.readFile = promisify(fs.readFile);
+    this.deleteFile = promisify(fs.unlinkSync);
     this.messageFolder = "./public/audio/";
     if (!fs.existsSync(this.messageFolder)) {
       fs.mkdirSync(this.messageFolder);
@@ -25,6 +26,15 @@ class DriverAudioFiles {
     } catch (error) {
       console.error(error);
       throw Error(error);
+    }
+  }
+
+  async removeFile(nameFile) {
+    try {
+      fs.unlinkSync(this.messageFolder + nameFile);
+      return true;
+    } catch (err) {
+      console.error(err);
     }
   }
 
