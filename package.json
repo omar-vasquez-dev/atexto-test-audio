@@ -29,7 +29,7 @@
     "nodemon": "^2.0.4"
   },
   "scripts": {
-    "start": "nodemon server.js & react-scripts start",
+    "start": "react-scripts start",
     "serve": "nodemon server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
