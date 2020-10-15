@@ -13,10 +13,13 @@ This project is in DEVELOPMENT currently undergoing tests.**
 You need to have mongodb installed with an instance 
 > **mongodb://localhost:27017**
 
- Clone repository:
+##### Project
+
+Clone project in your workspace
 >`git clone https://github.com/omar-vasquez-dev/atexto-test-audio.git`
 >`cd atexto-test-audio`
 
+##### Run
 
  In the project directory, you can run:
 >`npm install`
