@@ -3,10 +3,13 @@
 
 This project was bootstrapped with [Create React App] (https://github.com/facebook/create-react-app), with server framework [Koa] (https://koajs.com)
 
-## Project status
+### About
+CRUD of audio files recorded in the browser using the getUserMedia api
+
+### Project status
 This project is in DEVELOPMENT currently undergoing tests.**
 
-### Sample setup:
+## Sample setup:
 
 ##### Requirements
 
