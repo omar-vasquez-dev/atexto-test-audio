@@ -1,4 +1,8 @@
 function ModuleAudioRecorderRoutes(router) {
+  router.get("/api",(ctx) => {
+    ctx.body = "Audio Recorder API | version : 1.0.0";
+  });
+  
   router.get(
     "/audio/file/:name",
     async (ctx) =>

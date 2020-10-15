@@ -1,7 +1,7 @@
 global.ioc = require("ioc-node")(__dirname);
 const app = require("./server/app");
-
-//console.log(global.ioc._container);
+const staticPage = require('koa-static')
+app.use(staticPage(__dirname + '/build'))
 
 app.listen(3333, () => {
   console.info("Server started .....");
