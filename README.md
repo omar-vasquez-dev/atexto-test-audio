@@ -15,13 +15,13 @@ You need to have mongodb installed with an instance
 
  Clone repository:
 >`git clone https://github.com/omar-vasquez-dev/atexto-test-audio.git`
-`cd atexto-test-audio`
+>`cd atexto-test-audio`
 
 
  In the project directory, you can run:
 >`npm install`
-`npm run build`
-`npm run serve`
+>`npm run build`
+>`npm run serve`
 
 Go to [http://localhost:3333](http://localhost:3333)
 
